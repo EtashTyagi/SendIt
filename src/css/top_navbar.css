@@ -1,7 +1,6 @@
 .navbar-custom{
     background: linear-gradient(135deg, indianred, #cd5c6c);
     font-family: sans-serif;
-    font-weight: lighter;
     color: white;
     border-bottom: solid 1px rgba(100, 100, 100, 0.5);
     position: fixed;
@@ -11,6 +10,7 @@
     font-size: 24px;
     font-family: sans-serif;
     font-weight: 500;
+    text-shadow: black 0.1em 0.1em 0.25em;
 }
 .navbar-btn {
     padding-left: 4px !important;
@@ -33,4 +33,8 @@
     border: solid rgba(100, 100, 100, 0.5) 1px;
     background: rgba(175, 175, 175, 0.2);
     transition-duration: 0.1s;
+}
+.dark-modal .modal-content{
+    background-color: indianred;
+    color: var(--bs-light);
 }

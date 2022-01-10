@@ -1,33 +1,51 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Button from "react-bootstrap/Button";
 import {Form, Modal, Nav} from "react-bootstrap";
+import signupHandler from "../utils/signupHandler";
+import Loading from "./Loading";
+
+const stringToComponent = [
+    "defaultSignupModal",
+    "waitingSignupModal",
+    "errorSignupModal",
+]
 
 function SignupModal({ className, closeLogin, openLogin, closeSignup, openSignup, openState }) {
+    const [rendering, setRendering] = useState("defaultSignupModal")
+    const [error, setError] = useState("")
+    return (
+        rendering === stringToComponent[0] ? <DefaultSignupModal className={className}
+                                                                 setRendering={setRendering}
+                                                                 openLogin={openLogin}
+                                                                 closeSignup={closeSignup}
+                                                                 openSignup={openSignup}
+                                                                 openState={openState}
+                                                                 setError={setError}/> :
+        rendering === stringToComponent[1] ? <WaitingSignupModal className={className}/> :
+        rendering === stringToComponent[2] ? <ErrorSignupModal className={className}
+                                                               setRendering={setRendering}
+                                                               openState={openState}
+                                                               closeSignup={closeSignup}
+                                                               openSignup={openSignup}
+                                                               error={error}/> :
+        <></>
+    )
 
+}
+
+function DefaultSignupModal({ className, setRendering, openLogin, closeSignup, openSignup, openState, setError }) {
     return (
         <>
             <Nav.Link variant="primary" onClick={openSignup} className={className}>
                 Signup
             </Nav.Link>
 
-            <Modal show={openState.signupOpen} onHide={closeSignup}>
+            <Modal show={openState.signupOpen} onHide={closeSignup} className={"shadow"}>
                 <Modal.Header closeButton>
                     <Modal.Title>Register To Send It!</Modal.Title>
                 </Modal.Header>
-                <Form onSubmit={
-                    (event) => {
-                        event.preventDefault()
-                        let formData = new FormData(event.target);
-                        for (let [key, value] of formData.entries()) {
-                            console.log(key, value);
-                        }
-                        fetch('https://etashtyagi.centralindia.cloudapp.azure.com/auth_api/signup/',
-                            {
-                                method: 'POST',
-                                body: formData
-                            })
-                            .then(res => res.json()).then(result => console.log(result))
-                    }} action={"#"}>
+                <Form onSubmit={(event) =>
+                {signupHandler(event, setRendering, setError)}} action={"#"}>
                     <Modal.Body className="d-flex flex-column">
                         <Form.Label className="d-flex flex-row align-items-center">
                             <span className="me-2 w-25">Email:</span>
@@ -77,6 +95,42 @@ function SignupModal({ className, closeLogin, openLogin, closeSignup, openSignup
             </Modal>
         </>
     );
+}
+function WaitingSignupModal({ className }) {
+    return (
+    <>
+        <Nav.Link variant="primary" className={className}>
+            Signup
+        </Nav.Link>
+
+        <Modal show={true} className={"shadow"}>
+            <Modal.Header>
+                <Modal.Title>Registering, Please Wait!</Modal.Title>
+            </Modal.Header>
+            <Modal.Body className="d-flex flex-column">
+                <Loading/>
+            </Modal.Body>
+        </Modal>
+    </>)
+}
+function ErrorSignupModal({ className, setRendering, openState, closeSignup, openSignup, error }) {
+    return (
+        <>
+            <Nav.Link variant="primary" className={className}
+                      onClick={() => {setRendering("defaultSignupModal"); openSignup()}}>
+                Signup
+            </Nav.Link>
+
+            <Modal className={"shadow dark-modal"} show={openState.signupOpen} onHide={closeSignup} >
+                <Modal.Header closeButton>
+                    <Modal.Title>Error Occurred While Registering</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="d-flex flex-column">
+                    {error}
+                </Modal.Body>
+            </Modal>
+        </>
+    )
 }
 
 export default SignupModal;
