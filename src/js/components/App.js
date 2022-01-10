@@ -6,12 +6,7 @@ function App() {
       return (
         <div className="d-flex flex-column">
             <TopNavbar/>
-            <div style={{height: "40vh", background: "#212529", color: "white"}} onClick={
-                  () => {
-                        fetch('https://etashtyagi.centralindia.cloudapp.azure.com/auth_api/users/')
-                            .then(res => res.json()).then(result => console.log(result))
-                  }
-            }>
+            <div style={{height: "40vh", background: "#212529", color: "white"}}>
             </div>
             <div style={{height: "24.7vh", background: "#343a40"}}>
             </div>
