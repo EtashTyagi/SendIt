@@ -34,7 +34,7 @@ code {
     border-right-color: indianred;
     border-bottom-color: goldenrod;
     border-left-color: forestgreen;
-    transform: rotate(0deg);
+    transform: rotate(360deg);
   }
 }
 

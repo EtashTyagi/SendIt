@@ -34,7 +34,11 @@
     background: rgba(175, 175, 175, 0.2);
     transition-duration: 0.1s;
 }
-.dark-modal .modal-content{
+.danger-modal .modal-content{
     background-color: indianred;
+    color: var(--bs-light);
+}
+.success-modal .modal-content{
+    background-color: darkolivegreen;
     color: var(--bs-light);
 }
