@@ -4,7 +4,6 @@ export function login(event, setError, setRendering, setLoading, closeLogin) {
     let formData = new FormData(event.target);
     setLoading(true)
     const apiCall = async () => {
-        console.log(await isLoggedIn())
         try {
             const res = await fetch('https://etashtyagi.centralindia.cloudapp.azure.com/auth_api/login/',
                 {method: 'POST', body: formData,})
@@ -21,7 +20,6 @@ export function login(event, setError, setRendering, setLoading, closeLogin) {
             setError(err.toString());
             setRendering("errorLoginModal");
         }
-        console.log(await isLoggedIn())
     }
     apiCall().then(() => {setLoading(false)})
 }
@@ -30,8 +28,7 @@ export async function isLoggedIn() {
     let res = await fetch('https://etashtyagi.centralindia.cloudapp.azure.com/auth_api/auth_status/',
     {method: 'GET', headers: {Authorization: (`Token ${token}`)}})
     if (res.status === 200) {
-        let resJson = await res.json()
-        return resJson
+        return await res.json()
     } else {
         return false
     }

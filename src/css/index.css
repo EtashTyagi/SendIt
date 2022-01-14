@@ -7,7 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 html {
-  background: #f0f2f5;
+  background: linear-gradient(135deg, darkslateblue, mediumslateblue, #1b7fe0, mediumslateblue,darkslateblue);
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
