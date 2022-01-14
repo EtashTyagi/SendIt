@@ -6,7 +6,6 @@ import Loading from "./Loading";
 
 const stringToComponent = [
     "defaultSignupModal",
-    "waitingSignupModal",
     "errorSignupModal",
     "successSignupModal"
 ]
@@ -14,6 +13,7 @@ const stringToComponent = [
 function SignupModal({ className, closeLogin, openLogin, closeSignup, openSignup, openState }) {
     const [rendering, setRendering] = useState("defaultSignupModal")
     const [error, setError] = useState("")
+
     return (
         rendering === stringToComponent[0] ? <DefaultSignupModal className={className}
                                                                  setRendering={setRendering}
@@ -22,14 +22,13 @@ function SignupModal({ className, closeLogin, openLogin, closeSignup, openSignup
                                                                  openSignup={openSignup}
                                                                  openState={openState}
                                                                  setError={setError}/> :
-        rendering === stringToComponent[1] ? <WaitingSignupModal className={className}/> :
-        rendering === stringToComponent[2] ? <ErrorSignupModal className={className}
+        rendering === stringToComponent[1] ? <ErrorSignupModal className={className}
                                                                setRendering={setRendering}
                                                                openState={openState}
                                                                closeSignup={closeSignup}
                                                                openSignup={openSignup}
                                                                error={error}/> :
-        rendering === stringToComponent[3] ? <SuccessSignupModal className={className}
+        rendering === stringToComponent[2] ? <SuccessSignupModal className={className}
                                                                  setRendering={setRendering}
                                                                  openState={openState}
                                                                  closeSignup={closeSignup}
@@ -57,6 +56,7 @@ function DefaultSignupModal({ className, setRendering, openLogin, closeSignup, o
         password: "",
         confirm: ""
     })
+    const [loading, setLoading] = useState(false)
     return (
         <>
             <Nav.Link variant="primary" onClick={openSignup} className={className}>
@@ -66,9 +66,10 @@ function DefaultSignupModal({ className, setRendering, openLogin, closeSignup, o
             <Modal show={openState.signupOpen} onHide={closeSignup} className={"shadow"}>
                 <Modal.Header closeButton>
                     <Modal.Title>Register To Send It!</Modal.Title>
+                    {loading ? <Loading/> :<div/>}
                 </Modal.Header>
                 <Form onSubmit={(event) =>
-                {signup(event, setRendering, setError, setValidationErrors)}} action={"#"}
+                {signup(event, setRendering, setError, setValidationErrors, setLoading)}} action={"#"}
                 noValidate>
                     <Modal.Body className="d-flex flex-column">
                         <Form.Group className="d-flex flex-row align-items-center flex-wrap">
@@ -173,23 +174,7 @@ function DefaultSignupModal({ className, setRendering, openLogin, closeSignup, o
         </>
     );
 }
-function WaitingSignupModal({ className }) {
-    return (
-    <>
-        <Nav.Link variant="primary" className={className}>
-            Signup
-        </Nav.Link>
 
-        <Modal show={true} className={"shadow"}>
-            <Modal.Header>
-                <Modal.Title>Registering, Please Wait!</Modal.Title>
-            </Modal.Header>
-            <Modal.Body className="d-flex flex-column">
-                <Loading/>
-            </Modal.Body>
-        </Modal>
-    </>)
-}
 function ErrorSignupModal({ className, setRendering, openState, closeSignup, openSignup, error }) {
     return (
         <>

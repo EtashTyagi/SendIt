@@ -1,53 +1,38 @@
-export function login(event, setError, setRendering) {
+export function login(event, setError, setRendering, setLoading, closeLogin) {
     event.preventDefault()
     event.stopPropagation();
     let formData = new FormData(event.target);
-    fetch('https://etashtyagi.centralindia.cloudapp.azure.com/auth_api/login/',
-        {
-            method: 'POST',
-            body: formData
-        })
-        .then(result => (result.json()))
-        .catch(reason => {
-            console.log(reason)
-            setError(reason.toString());
+    setLoading(true)
+    const apiCall = async () => {
+        console.log(await isLoggedIn())
+        try {
+            const res = await fetch('https://etashtyagi.centralindia.cloudapp.azure.com/auth_api/login/',
+                {method: 'POST', body: formData,})
+            const resJson = await res.json()
+            if (resJson.success) {
+                setError(false)
+                localStorage.setItem("Token", resJson.message)
+                closeLogin()
+            } else {
+                setError(true)
+                setRendering("defaultLoginModal")
+            }
+        } catch (err) {
+            setError(err.toString());
             setRendering("errorLoginModal");
-        }).then(data => {
-            console.log(data)
-        if (data.success) {
-            setError(false)
-            setRendering("defaultLoginModal")
-            document.cookie = `token=${data["message"]}; expires=Thu, 18 Dec 2100 12:00:00 UTC`;
-        } else {
-            setError(true)
-            setRendering("defaultLoginModal")
         }
-    });
-}
-
-export function isLoggedIn() {
-    let name = "token=";
-    let value = "";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
-    for(let i = 0; i <ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) === ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) === 0) {
-            value = c.substring(name.length, c.length);
-        }
+        console.log(await isLoggedIn())
     }
-    fetch('https://etashtyagi.centralindia.cloudapp.azure.com/auth_api/login/',
-        {
-            method: 'POST',
-            body: {"token": value}
-        })
-        .then(result => (result.json()))
-        .catch(reason => {
-            console.log(reason)
-        }).then(data => {
-            return data.success;
-        });
+    apiCall().then(() => {setLoading(false)})
+}
+export async function isLoggedIn() {
+    let token = localStorage.getItem("Token")
+    let res = await fetch('https://etashtyagi.centralindia.cloudapp.azure.com/auth_api/auth_status/',
+    {method: 'GET', headers: {Authorization: (`Token ${token}`)}})
+    if (res.status === 200) {
+        let resJson = await res.json()
+        return resJson
+    } else {
+        return false
+    }
 }

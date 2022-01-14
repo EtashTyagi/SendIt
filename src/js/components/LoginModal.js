@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Button from "react-bootstrap/Button";
 import {Form, Modal, Nav} from "react-bootstrap";
 import {login} from "../utils/loginHandler";
+import Loading from "./Loading";
 
 const stringToComponent = [
     "defaultLoginModal",
@@ -11,6 +12,7 @@ const stringToComponent = [
 
 function LoginModal({ className, closeLogin, openLogin, closeSignup, openSignup, openState }) {
     const [rendering, setRendering] = useState("defaultLoginModal")
+    const [loading, setLoading] = useState("")
     return (
         rendering === stringToComponent[0] ? <DefaultLoginModal className={className}
                                                                  setRendering={setRendering}
@@ -23,12 +25,13 @@ function LoginModal({ className, closeLogin, openLogin, closeSignup, openSignup,
                                                                openState={openState}
                                                               openLogin={openLogin}
                                                               closeLogin={closeLogin}/> :
-                        <></>
+                        <div/>
     );
 }
 
 function DefaultLoginModal({ className, setRendering, openLogin, closeLogin, openSignup, openState }) {
     const [error, setError] = useState(false)
+    const [loading, setLoading] = useState(false)
     return (
         <>
             <Nav.Link variant="primary" onClick={openLogin} className={className}>
@@ -38,9 +41,10 @@ function DefaultLoginModal({ className, setRendering, openLogin, closeLogin, ope
             <Modal show={openState.loginOpen} onHide={closeLogin} className={"shadow"}>
                 <Modal.Header closeButton>
                     <Modal.Title>Login To Send It!</Modal.Title>
+                    {loading ? <Loading/> : <div/>}
                 </Modal.Header>
                 <Form onSubmit={(event) =>
-                {login(event, setError, setRendering)}} action={"#"}>
+                {login(event, setError, setRendering, setLoading, closeLogin)}} action={"#"}>
                     <Modal.Body className="d-flex flex-column">
                         <Form.Group className="d-flex flex-row align-items-center flex-wrap">
                             <Form.Label className="w-25">Username:</Form.Label>

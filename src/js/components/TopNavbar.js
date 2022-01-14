@@ -3,12 +3,14 @@ import {Container, Nav, Navbar} from "react-bootstrap";
 import "../../css/top_navbar.css"
 import LoginModal from "./LoginModal";
 import SignupModal from "./SignupModal";
+import {isLoggedIn} from "../utils/loginHandler";
 
 function TopNavbar(props) {
     const [openState, setOpenState] = useState({
         "loginOpen": false,
         "signupOpen": false
     });
+    const [loggedIn, setLoggedIn] = useState(false)
     const openLogin = () => {
         setOpenState({
             "loginOpen": true,
@@ -33,7 +35,7 @@ function TopNavbar(props) {
             "signupOpen": false
         })
     }
-
+    isLoggedIn().then(value => {setLoggedIn(value)})
     return (
         <Navbar expand="lg" className="shadow navbar-custom" variant="dark">
             <Container>
@@ -41,10 +43,14 @@ function TopNavbar(props) {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <LoginModal className={"navbar-btn"} closeSignup={closeSignup} openSignup={openSignup}
-                                    closeLogin={closeLogin} openLogin={openLogin} openState={openState}/>
-                        <SignupModal className={"navbar-btn"} closeSignup={closeSignup} openSignup={openSignup}
-                                     closeLogin={closeLogin} openLogin={openLogin} openState={openState}/>
+                        {loggedIn ? <span>{loggedIn}</span> :
+                            <>
+                                <LoginModal className={"navbar-btn"} closeSignup={closeSignup} openSignup={openSignup}
+                                            closeLogin={closeLogin} openLogin={openLogin} openState={openState}/>
+                                <SignupModal className={"navbar-btn"} closeSignup={closeSignup} openSignup={openSignup}
+                                             closeLogin={closeLogin} openLogin={openLogin} openState={openState}/>
+                            </>
+                        }
                     </Nav>
                 </Navbar.Collapse>
             </Container>
