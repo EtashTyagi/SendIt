@@ -12,7 +12,6 @@ const stringToComponent = [
 
 function LoginModal({ className, closeLogin, openLogin, closeSignup, openSignup, openState }) {
     const [rendering, setRendering] = useState("defaultLoginModal")
-    const [loading, setLoading] = useState("")
     return (
         rendering === stringToComponent[0] ? <DefaultLoginModal className={className}
                                                                  setRendering={setRendering}
@@ -38,7 +37,7 @@ function DefaultLoginModal({ className, setRendering, openLogin, closeLogin, ope
                 Login
             </Nav.Link>
 
-            <Modal show={openState.loginOpen} onHide={closeLogin} className={"shadow"}>
+            <Modal show={openState.loginOpen} onHide={closeLogin} centered className="mt-0 shadow">
                 <Modal.Header closeButton>
                     <Modal.Title>Login To Send It!</Modal.Title>
                     {loading ? <Loading/> : <div/>}

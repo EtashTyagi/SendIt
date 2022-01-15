@@ -1,10 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../../css/App.css'
 import TopNavbar from "./TopNavbar";
+import MainDisplay from "./MainDisplay";
 
 function App() {
       return (
-        <div className="d-flex flex-column" style={{height:"100vh", background:"linear-gradient(135deg, darkslateblue, mediumslateblue, dodgerblue, mediumslateblue,darkslateblue)"}}>
+        <div className="App">
             <TopNavbar/>
+            <MainDisplay/>
         </div>
       );
 }

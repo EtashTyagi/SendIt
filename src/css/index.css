@@ -7,41 +7,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 html {
-  background: linear-gradient(135deg, darkslateblue, mediumslateblue, #1b7fe0, mediumslateblue,darkslateblue);
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
-
-@keyframes loadingAnimation {
-  0% {
-    border: 5px solid darkslateblue;
-    border-right-color: indianred;
-    border-bottom-color: goldenrod;
-    border-left-color: forestgreen;
-    transform: rotate(0deg);
-  }
-  50% {
-    border: 20.5px solid darkslateblue;
-    border-right-color: indianred;
-    border-bottom-color: goldenrod;
-    border-left-color: forestgreen;
-    transform: rotate(180deg);
-  }
-  100% {
-    border: 5px solid darkslateblue;
-    border-right-color: indianred;
-    border-bottom-color: goldenrod;
-    border-left-color: forestgreen;
-    transform: rotate(360deg);
-  }
-}
-
-.loading {
-  border-radius: 50%;
-  height: 40px;
-  width: 40px;
-  animation: loadingAnimation 4s infinite ease-in-out;
-
 }

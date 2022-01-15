@@ -63,7 +63,7 @@ function DefaultSignupModal({ className, setRendering, openLogin, closeSignup, o
                 Signup
             </Nav.Link>
 
-            <Modal show={openState.signupOpen} onHide={closeSignup} className={"shadow"}>
+            <Modal show={openState.signupOpen} onHide={closeSignup} className={"shadow mt-0"} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Register To Send It!</Modal.Title>
                     {loading ? <Loading/> :<div/>}

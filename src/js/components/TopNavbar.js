@@ -37,7 +37,7 @@ function TopNavbar(props) {
     }
     isLoggedIn().then(value => {setLoggedIn(value)})
     return (
-        <Navbar expand="lg" className="shadow navbar-custom" variant="dark">
+        <Navbar expanded className="shadow navbar-custom" variant="dark">
             <Container>
                 <Navbar.Brand href="#home">Send It!</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
