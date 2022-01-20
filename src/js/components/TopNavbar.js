@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import {Container, Nav, Navbar} from "react-bootstrap";
+import {Image, Nav, Navbar} from "react-bootstrap";
 import "../../css/top_navbar.css"
+import contactsImg from "../../res/contacts_white_24dp.svg"
 import LoginModal from "./LoginModal";
 import SignupModal from "./SignupModal";
 import {isLoggedIn} from "../utils/loginHandler";
 
-function TopNavbar(props) {
+function TopNavbar({ toggleContacts }) {
     const [openState, setOpenState] = useState({
         "loginOpen": false,
         "signupOpen": false
@@ -37,23 +38,21 @@ function TopNavbar(props) {
     }
     isLoggedIn().then(value => {setLoggedIn(value)})
     return (
-        <Navbar expanded className="shadow navbar-custom" variant="dark">
-            <Container>
-                <Navbar.Brand href="#home">Send It!</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                        {loggedIn ? <span>{loggedIn}</span> :
-                            <>
-                                <LoginModal className={"navbar-btn"} closeSignup={closeSignup} openSignup={openSignup}
-                                            closeLogin={closeLogin} openLogin={openLogin} openState={openState}/>
-                                <SignupModal className={"navbar-btn"} closeSignup={closeSignup} openSignup={openSignup}
-                                             closeLogin={closeLogin} openLogin={openLogin} openState={openState}/>
-                            </>
-                        }
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
+        <Navbar expanded className="shadow-sm navbar-custom" variant="dark">
+            <div className="mx-2 d-flex flex-row w-100 align-items-center">
+                <Navbar.Brand href="#home" className="ps-2">Send It!</Navbar.Brand>
+                <Nav className="me-auto">
+                    {loggedIn ? <span>{loggedIn}</span> :
+                        <>
+                            <LoginModal className={"navbar-btn"} closeSignup={closeSignup} openSignup={openSignup}
+                                        closeLogin={closeLogin} openLogin={openLogin} openState={openState}/>
+                            <SignupModal className={"navbar-btn"} closeSignup={closeSignup} openSignup={openSignup}
+                                         closeLogin={closeLogin} openLogin={openLogin} openState={openState}/>
+                        </>
+                    }
+                </Nav>
+                <Image className={"navbar-btn-contacts"} src={contactsImg} onClick={toggleContacts}/>
+            </div>
         </Navbar>
     );
 }

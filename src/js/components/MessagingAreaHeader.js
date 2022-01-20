@@ -1,21 +1,22 @@
 import React from 'react';
-import {Image} from "react-bootstrap";
-import reactImage from "../../res/NINTCHDBPICT000005403160.webp"
+import "../../css/messaging_area.css"
 import "../../css/contacts_bar.css"
+import {Image} from "react-bootstrap";
+import reactImage from "../../res/NINTCHDBPICT000005403160.webp";
 
-function ContactBarItem({ contact, onClick, active }) {
+function MessagingAreaHeader({ contact }) {
     let loadingTag = contact.loading ? " loading" : ""
     return (
-        <div className={`contacts-item p-2 pe-0${active ? " active":""}`} onClick={onClick}>
+        <div className={`messaging-area-header`}>
             {contact.loading ? <div className={"contacts-item-img buffering"}/>:
                 <Image className="contacts-item-img" src={reactImage}/>
             }
             <div className="contacts-info-holder ps-2">
                 <span className={`h5 contacts-name${loadingTag}`}>{contact.name}</span>
-                <span className={`h6 mt-1 contacts-status${loadingTag}`}>{contact.status}</span>
+                <span className={`h6 contacts-status${loadingTag} mt-1`}>{contact.loading?"":"Online"}</span>
             </div>
         </div>
     );
 }
 
-export default ContactBarItem;
+export default MessagingAreaHeader;
