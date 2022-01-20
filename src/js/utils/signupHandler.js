@@ -22,9 +22,7 @@ export function signup(event, setRendering, setError, setValidationError, setLoa
             } else {
                 jsonRes.message.confirm = [formData.get("password") === formData.get("confirm"),
                     "Passwords don't match!"]
-                setValidationError(prev => {
-                    return jsonRes.message
-                })
+                setValidationError(jsonRes.message)
                 setRendering("defaultSignupModal")
             }
         } catch (err) {
