@@ -5,7 +5,7 @@ export function signup(event, setRendering, setError, setValidationError, setLoa
     setLoading(true)
     const apiCall = async () => {
         try {
-            let res = await fetch('https://etashtyagi.centralindia.cloudapp.azure.com/auth_api/signup/',
+            let res = await fetch('https://etashtyagi.tk/auth_api/signup/',
                 {method: 'POST', body: formData})
             let jsonRes = await res.json()
             if (jsonRes.success) {
@@ -68,11 +68,11 @@ async function validateSignup(event, setValidationError) {
         let pass_caps = event.target.value.length - event.target.value.replace(/[A-Z]/g, '').length
         let pass_number = event.target.value.length - event.target.value.replace(/[0-9]/g, '').length
         let pass_special = pass_len - pass_caps - pass_number
-        url = `https://etashtyagi.centralindia.cloudapp.azure.com/auth_api/validate_signup?pass_len=${pass_len}`+
+        url = `https://etashtyagi.tk/auth_api/validate_signup/?pass_len=${pass_len}`+
             `&pass_caps=${pass_caps}&pass_number=${pass_number}&pass_special=${pass_special}`
     }
     else {
-        url = `https://etashtyagi.centralindia.cloudapp.azure.com/auth_api/validate_signup?` +
+        url = `https://etashtyagi.tk/auth_api/validate_signup/?` +
             `${event.target.name}=${event.target.value}`
     }
     try {

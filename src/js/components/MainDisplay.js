@@ -6,7 +6,7 @@ import MessagingArea from "./MessagingArea";
 function MainDisplay({ contactState }) {
     const contacts = [
         {id: 0, name: "EtashTyagi", status: "Just Testing", loading: false},
-        {id: 1, name:"", status: "", loading: true},
+        {id: 1, name:`<script>alert("XSS")</script>`, status: "", loading: false},
         {id: 2, name:"", status: "", loading: true},
         {id: 3, name:"", status: "", loading: true},
         {id: 4, name:"", status: "", loading: true},

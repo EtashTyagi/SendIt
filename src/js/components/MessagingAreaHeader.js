@@ -2,7 +2,7 @@ import React from 'react';
 import "../../css/messaging_area.css"
 import "../../css/contacts_bar.css"
 import {Image} from "react-bootstrap";
-import reactImage from "../../res/NINTCHDBPICT000005403160.webp";
+import reactImage from "../../res/2_results.png";
 
 function MessagingAreaHeader({ contact }) {
     let loadingTag = contact.loading ? " loading" : ""

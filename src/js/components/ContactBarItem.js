@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image} from "react-bootstrap";
-import reactImage from "../../res/NINTCHDBPICT000005403160.webp"
+import reactImage from "../../res/2_results.png";
 import "../../css/contacts_bar.css"
 
 function ContactBarItem({ contact, onClick, active }) {

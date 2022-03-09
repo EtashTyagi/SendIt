@@ -5,7 +5,7 @@ export function login(event, setError, setRendering, setLoading, closeLogin) {
     setLoading(true)
     const apiCall = async () => {
         try {
-            const res = await fetch('https://etashtyagi.centralindia.cloudapp.azure.com/auth_api/login/',
+            const res = await fetch('https://etashtyagi.tk/auth_api/login/',
                 {method: 'POST', body: formData,})
             const resJson = await res.json()
             if (resJson.success) {
@@ -25,7 +25,7 @@ export function login(event, setError, setRendering, setLoading, closeLogin) {
 }
 export async function isLoggedIn() {
     let token = localStorage.getItem("Token")
-    let res = await fetch('https://etashtyagi.centralindia.cloudapp.azure.com/auth_api/auth_status/',
+    let res = await fetch('https://etashtyagi.tk/auth_api/auth_status/',
     {method: 'GET', headers: {Authorization: (`Token ${token}`)}})
     if (res.status === 200) {
         return await res.json()
