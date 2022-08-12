@@ -1,1 +1,1 @@
-# Hosted at https://sendit.etashtyagi.tk
+# Hosted at https://etashtyagi.github.io/SendIt/
